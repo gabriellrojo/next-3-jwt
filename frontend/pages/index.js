@@ -1,44 +1,32 @@
-import React from 'react';
-import { useRouter } from 'next/router';
+import { useState } from "react"
+import auth from "../src/service/auth/auth"
 
 export default function HomeScreen() {
-  const router = useRouter();
-  const [values, setValues] = React.useState({
-    usuario: 'omariosouto',
-    senha: 'safepassword',
-  });
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
 
-  function handleChange(event) {
-    const fieldValue = event.target.value;
-    const fieldName = event.target.name;
-    setValues((currentValues) => {
-      return {
-        ...currentValues,
-        [fieldName]: fieldValue,
-      };
-    })
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const login = {
+      username: username,
+      password: password
+    }
 
+    const exec = await auth(login)
+    if(exec){
+      console.log(exec.data.access_token)
+    }
+} 
   return (
     <div>
       <h1>Login</h1>
-      <form onSubmit={(event) => {
-        event.preventDefault();
-
-        // router.push('/auth-page-static');
-        router.push('/auth-page-ssr');
-      }}>
+      <form onSubmit={handleSubmit}>
         <input
-          placeholder="Usuário" name="usuario"
-          value={values.usuario} onChange={handleChange}
+          placeholder="Usuário" name="usuario" value={username} onChange={(e) => setUsername(e.target.value)} 
         />
         <input
-          placeholder="Senha" name="senha" type="password"
-          value={values.senha} onChange={handleChange}
+          placeholder="Senha" name="senha" type="password" value={password} onChange={(e) => setPassword(e.target.value)}
         />
-        {/* <pre>
-          {JSON.stringify(values, null, 2)}
-        </pre> */}
         <div>
           <button>
             Entrar

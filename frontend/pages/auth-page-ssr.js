@@ -4,9 +4,6 @@ function AuthPageSSR(props) {
       <h1>
         Auth Page Server Side Render
       </h1>
-      <pre>
-        {JSON.stringify(props, null, 2)}
-      </pre> 
     </div>
   )
 }
