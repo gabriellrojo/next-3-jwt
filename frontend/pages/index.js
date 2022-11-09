@@ -1,9 +1,12 @@
+import { useRouter } from "next/router"
 import { useState } from "react"
 import auth from "../src/service/auth/auth"
+import nookies from "nookies"
 
 export default function HomeScreen() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const router = useRouter()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -14,7 +17,14 @@ export default function HomeScreen() {
 
     const exec = await auth(login)
     if(exec){
-      console.log(exec.data.access_token)
+      sessionStorage.setItem("token", exec.data.access_token)
+      const token = sessionStorage.getItem("token".toString())
+      nookies.set(null, "token", token, {
+        maxAge: 30 * 24 * 60 * 60,
+        path: '/',
+      })
+      //caso quisessemos usar apenas o cookie = nookies.set(null, "token", exec.data.access_token)
+      router.push("/auth-page-ssr")
     }
 } 
   return (
