@@ -1,6 +1,4 @@
-import { useRouter } from "next/router"
-
-const auth = async  (login) => {
+export default async function auth(login){
 
     const res = await fetch("http://localhost:4000/api/login", {
         method: "POST",
@@ -22,5 +20,3 @@ const auth = async  (login) => {
     }
     
 }
-
-export default auth

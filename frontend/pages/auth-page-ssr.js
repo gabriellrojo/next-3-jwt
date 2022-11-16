@@ -1,21 +1,29 @@
 import nookies from "nookies"
-import { useRouter } from "next/router"
 
 export async function getServerSideProps(context) {
   const cookies = nookies.get(context)
   const token = cookies.token
-  console.log(token)
-  if(!token) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: '/'
+  await fetch("http://localhost:4000/api/session", {
+        method: "GET",
+        headers: {
+            "Authorization" : `Bearer ${token}`
+        }
+    })
+    try{
+      if(!token) {
+        return {
+          redirect: {
+            permanent: false,
+            destination: '/'
+          }
+        }
       }
+      return {
+        props: { }, // will be passed to the page component as props
+     }
+    } catch(err) {
+      console.log(err)
     }
-  } 
-  return {
-    props: { }, // will be passed to the page component as props
-  }
 }
 
 function AuthPageSSR() {

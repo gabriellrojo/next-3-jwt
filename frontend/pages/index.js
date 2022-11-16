@@ -24,7 +24,7 @@ export default function HomeScreen() {
         path: '/',
       })
       //caso quisessemos usar apenas o cookie = nookies.set(null, "token", exec.data.access_token)
-      router.push("/auth-page-ssr")
+      router.push("/auth-page-static")
     }
 } 
   return (
