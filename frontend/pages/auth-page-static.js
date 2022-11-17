@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import nookies from "nookies"
 
 //via client side
 
@@ -20,9 +21,16 @@ function AuthPageStatic() {
     }
   },[getToken])
   
+  const handleDelete = () => {
+    sessionStorage.removeItem("token")
+    nookies.destroy(null, "token")
+    router.push("/")
+  }
+
   return (
     <div>
-      <h1>teste</h1>
+      <h1>Client Side Validation </h1>
+      <button onClick={handleDelete}>Logout</button>
     </div>
   )
 }

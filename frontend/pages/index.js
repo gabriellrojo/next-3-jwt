@@ -23,8 +23,13 @@ export default function HomeScreen() {
         maxAge: 30 * 24 * 60 * 60,
         path: '/',
       })
+
+      //nookies.set("refresh_token", exec.data.refresh_token, {
+        //httpOnly: true,
+        //sameSite: "lax" //somente o dominio que estamos terá acesso esse token
+     //})
       //caso quisessemos usar apenas o cookie = nookies.set(null, "token", exec.data.access_token)
-      router.push("/auth-page-static")
+      router.push("/auth-page-ssr")
     }
 } 
   return (
