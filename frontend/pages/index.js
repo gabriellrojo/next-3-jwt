@@ -2,6 +2,7 @@ import { useRouter } from "next/router"
 import { useState } from "react"
 import auth from "../src/service/auth/auth"
 import nookies from "nookies"
+import styles from "./login.module.css"
 
 export default function HomeScreen() {
   const [username, setUsername] = useState("")
@@ -33,19 +34,19 @@ export default function HomeScreen() {
     }
 } 
   return (
-    <div>
+    <div className={styles.container}>
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
-        <input
-          placeholder="Usuário" name="usuario" value={username} onChange={(e) => setUsername(e.target.value)} 
-        />
-        <input
-          placeholder="Senha" name="senha" type="password" value={password} onChange={(e) => setPassword(e.target.value)}
-        />
-        <div>
-          <button>
-            Entrar
-          </button>
+          <div className={styles.form}>
+            <input
+            className={styles.campos} placeholder="Usuário" name="usuario" value={username} onChange={(e) => setUsername(e.target.value)} 
+          />
+          <input
+            className={styles.campos}  placeholder="Senha" name="senha" type="password" value={password} onChange={(e) => setPassword(e.target.value)}
+          />
+          <div className={styles.btncontainer}>
+            <input className={styles.btn} type="submit" value="Entrar"/>
+          </div>
         </div>
       </form>
     </div>
